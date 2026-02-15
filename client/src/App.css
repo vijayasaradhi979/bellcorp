@@ -1,0 +1,211 @@
+.App {
+  min-height: 100vh;
+}
+
+/* Button Styles */
+.btn {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  font-weight: 600;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.btn:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+.btn-primary {
+  background: #2a2a2a;
+  color: #ffffff;
+  border: 1px solid #3a3a3a;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  background: #3a3a3a;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+}
+
+.btn-secondary {
+  background: #1a1a1a;
+  color: #ffffff;
+  border: 1px solid #2a2a2a;
+}
+
+.btn-secondary:hover {
+  transform: translateY(-2px);
+  background: #2a2a2a;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+}
+
+.btn-danger {
+  background: #2a1a1a;
+  color: #ff6b6b;
+  border: 1px solid #3a2a2a;
+}
+
+.btn-danger:hover {
+  transform: translateY(-2px);
+  background: #3a2a2a;
+  box-shadow: 0 6px 12px rgba(255, 107, 107, 0.2);
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+/* Input Styles */
+.input {
+  width: 100%;
+  padding: 14px 16px;
+  border: 2px solid #2a2a2a;
+  border-radius: 10px;
+  font-size: 16px;
+  margin-bottom: 15px;
+  transition: all 0.3s ease;
+  background: #1a1a1a;
+  color: #e0e0e0;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #4a4a4a;
+  background: #1f1f1f;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.05);
+  transform: translateY(-2px);
+}
+
+.input:hover {
+  border-color: #3a3a3a;
+}
+
+.input::placeholder {
+  color: #666;
+}
+
+/* Card Styles */
+.card {
+  background: #1a1a1a;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+  margin-bottom: 20px;
+  border: 1px solid #2a2a2a;
+  transition: all 0.3s ease;
+  color: #e0e0e0;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.7);
+  border-color: #3a3a3a;
+}
+
+/* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(5px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.modal-content {
+  background: #1a1a1a;
+  border-radius: 20px;
+  padding: 30px;
+  max-width: 500px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+  animation: slideUp 0.3s ease;
+  border: 2px solid #2a2a2a;
+  color: #e0e0e0;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #2a2a2a;
+}
+
+.modal-header h2 {
+  margin: 0;
+  color: #ffffff;
+  font-size: 24px;
+}
+
+.close-btn {
+  background: #2a2a2a;
+  border: 1px solid #3a3a3a;
+  font-size: 24px;
+  cursor: pointer;
+  color: #e0e0e0;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  line-height: 1;
+}
+
+.close-btn:hover {
+  transform: rotate(90deg) scale(1.1);
+  background: #3a3a3a;
+  color: #ffffff;
+}
