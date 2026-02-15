@@ -56,9 +56,9 @@ This guide will help you deploy your Expense Tracker application using free host
    - Configure:
      - **Name**: expense-tracker-api (or any name)
      - **Environment**: Node
-     - **Build Command**: `cd server && npm install`
-     - **Start Command**: `cd server && npm start`
-     - **Root Directory**: Leave empty (or set to root)
+     - **Root Directory**: `server` (IMPORTANT: Set this to "server")
+     - **Build Command**: `npm install` (leave empty or use this)
+     - **Start Command**: `npm start`
    - Add Environment Variables:
      ```
      PORT=10000
@@ -108,7 +108,7 @@ Let me create the config file for you.
    - Configure:
      - **Framework Preset**: Create React App
      - **Root Directory**: `client`
-     - **Build Command**: `npm run build`
+     - **Build Command**: `npm run build` (type this without backticks)
      - **Output Directory**: `build`
    - Add Environment Variable:
      ```

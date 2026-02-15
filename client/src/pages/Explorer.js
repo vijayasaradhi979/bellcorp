@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useContext } from 'react';
+import React, { useState, useEffect, useRef, useContext, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import api from '../api/axios';
@@ -21,36 +21,7 @@ const Explorer = () => {
   const navigate = useNavigate();
   const observerTarget = useRef(null);
 
-  useEffect(() => {
-    fetchTransactions(1);
-  }, []);
-
-  useEffect(() => {
-    filterTransactions();
-  }, [transactions, searchTerm, selectedCategory, dateRange]);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      entries => {
-        if (entries[0].isIntersecting && hasMore && !loading) {
-          loadMore();
-        }
-      },
-      { threshold: 1.0 }
-    );
-
-    if (observerTarget.current) {
-      observer.observe(observerTarget.current);
-    }
-
-    return () => {
-      if (observerTarget.current) {
-        observer.unobserve(observerTarget.current);
-      }
-    };
-  }, [hasMore, loading]);
-
-  const fetchTransactions = async (page) => {
+  const fetchTransactions = useCallback(async (page) => {
     try {
       setLoading(true);
       const response = await api.get(`/api/transactions?page=${page}&limit=10`);
@@ -66,15 +37,19 @@ const Explorer = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
-  const loadMore = () => {
+  useEffect(() => {
+    fetchTransactions(1);
+  }, [fetchTransactions]);
+
+  const loadMore = useCallback(() => {
     if (!loading && hasMore) {
       fetchTransactions(currentPage + 1);
     }
-  };
+  }, [loading, hasMore, currentPage, fetchTransactions]);
 
-  const filterTransactions = () => {
+  const filterTransactions = useCallback(() => {
     let filtered = [...transactions];
 
     if (searchTerm) {
@@ -96,7 +71,33 @@ const Explorer = () => {
     }
 
     setFilteredTransactions(filtered);
-  };
+  }, [transactions, searchTerm, selectedCategory, dateRange]);
+
+  useEffect(() => {
+    filterTransactions();
+  }, [filterTransactions]);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      entries => {
+        if (entries[0].isIntersecting && hasMore && !loading) {
+          loadMore();
+        }
+      },
+      { threshold: 1.0 }
+    );
+
+    const currentTarget = observerTarget.current;
+    if (currentTarget) {
+      observer.observe(currentTarget);
+    }
+
+    return () => {
+      if (currentTarget) {
+        observer.unobserve(currentTarget);
+      }
+    };
+  }, [hasMore, loading, loadMore]);
 
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this transaction?')) {

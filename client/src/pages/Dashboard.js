@@ -33,11 +33,6 @@ const Dashboard = () => {
     setShowModal(true);
   };
 
-  const handleEditTransaction = (transaction) => {
-    setEditingTransaction(transaction);
-    setShowModal(true);
-  };
-
   const handleModalClose = () => {
     setShowModal(false);
     setEditingTransaction(null);
